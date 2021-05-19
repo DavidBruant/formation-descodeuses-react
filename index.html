@@ -45,6 +45,20 @@
             Ici, "props" n'a qu'une seule propriété : 
             - "patate" (qui contient, on l'espère, un objet qui représente 
             un commit github (récupéré de l'API))
+
+            props, c'est un objet qui a cette forme :  {
+                patate : {
+                    commit: {
+                        message: 'ceci est un commit',
+                        author: {
+                            name: 'David'
+                        }
+                    },
+                    sha: 'hjkjblk',
+                    url: 'kzc,e,'
+                }
+            }
+
         */
         function Commit(props){
             console.log('props', props)
@@ -59,7 +73,7 @@
         }
 
         // appel à l'API github pour récupérer les commits
-        /*d3.json("https://api.github.com/repos/oisiflorus/danslajungle-site/commits?per_page=6")
+        d3.json("https://api.github.com/repos/oisiflorus/danslajungle-site/commits?per_page=6")
             // quand les données, reviennent de l'API, appeler cette fonction
             .then(function (data) {
                 console.log('les commits !', data);
@@ -79,12 +93,12 @@
                     document.getElementById('root')
                 );
 
-            });*/
+            });
 
         // rendu initial
         ReactDOM.render(
             React.createElement( Titre, {qui: 'David'} ),
-            //<Titre qui="David"/>,
+            //<Titre qui="David"/>, // JSX
             document.getElementById('root')
         );
 
