@@ -139,8 +139,14 @@
             const commits = props.commits;
             console.log('commits', commits)
 
-            // const array2 = array1.map(fois2);
-            // [1, 4, 9, 16] => [fois2(1), fois2(4), fois2(9), fois2(16)]
+            /*
+                const array2 = array1.map(fois2);
+                [1, 4, 9, 16] => [fois2(1), fois2(4), fois2(9), fois2(16)]
+
+                function fois2(x){
+                    return x*2
+                }
+            */
 
 //
             function CommitLi(commit){
@@ -160,7 +166,7 @@
         }
 
         // appel à l'API github pour récupérer les commits
-        d3.json("https://api.github.com/repos/oisiflorus/danslajungle-site/commits?per_page=37")
+        d3.json("https://api.github.com/repos/betagouv/comobi-core/commits?per_page=37")
             // quand les données, reviennent de l'API, appeler cette fonction
             .then(function (data) {
                 console.log('les commits !', data);
