@@ -90,8 +90,14 @@
             const author = patate.commit.author.name
             const dateStr = patate.commit.author.date;
 
+            console.log('dateStr', dateStr)
+
             //const date = dateStr.slice(0, 10)
             const date = moment(dateStr).format('D MMM YYYY')
+
+            console.log('date moment', moment(dateStr))
+
+            console.log('date à afficher', date)
 
 
             return (<div className="commit">
