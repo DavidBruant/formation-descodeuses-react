@@ -14,7 +14,8 @@
     <script src="https://d3js.org/d3-fetch.v2.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-
+    <!-- script librairy LODASH -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <style>
         .commit{
             border: 1px solid grey;
@@ -46,10 +47,10 @@
             Titre est une fonction JavaScript,
             utilisée comme un composant React
             "props", c'est un objet contenant des données utilisées par le composant
-            Ici, "props" n'a qu'une seule propriété : 
+            Ici, "props" n'a qu'une seule propriété :
             - "qui" (à qui on dit bonjour)
 
-            Exemple usage : 
+            Exemple usage :
             - React.createElement( Titre, {qui: 'David'} )
             - <Titre qui="David"/>
         */
@@ -64,8 +65,8 @@
             Commit est une fonction JavaScript,
             utilisée comme un composant React
             "props", c'est un objet contenant des données utilisées par le composant
-            Ici, "props" n'a qu'une seule propriété : 
-            - "patate" (qui contient, on l'espère, un objet qui représente 
+            Ici, "props" n'a qu'une seule propriété :
+            - "patate" (qui contient, on l'espère, un objet qui représente
             un commit github (récupéré de l'API))
 
             props, c'est un objet qui a cette forme :  {
@@ -84,7 +85,7 @@
         */
         function Commit(props){
             //console.log('props', props)
-            
+
             const patate = props.patate;
             const message = patate.commit.message
             const author = patate.commit.author.name
@@ -101,7 +102,7 @@
 
 
             return (<div className="commit">
-                <strong className="message">{message}</strong> commité 
+                <strong className="message">{message}</strong> commité
                 par <em className="author">{author}</em> le
                 <span className="date">{date}</span>
             </div>)
@@ -109,8 +110,8 @@
 
         /*
             CommitList est une fonction JavaScript, utilisée comme un composant React
-            "props" n'a qu'une seule propriété : 
-            - "commits" (qui contient, on l'espère, un tableau d'objets qui représentent 
+            "props" n'a qu'une seule propriété :
+            - "commits" (qui contient, on l'espère, un tableau d'objets qui représentent
             chacun un commit github (récupéré de l'API))
 
             props, c'est un objet qui a cette forme :  {
@@ -137,7 +138,92 @@
         */
         function CommitList(props){
             const commits = props.commits;
-            console.log('commits', commits)
+            console.log('commits !!!!!', commits)
+
+  /*
+  La version _groupBy (présenté par Louiza)
+
+  LODASH est un bibliothèque. _groupBy(arg1, arg2) a deux argument: arg1 - le tableau et arg2 - une fonction qui prend ton element du
+  tableau et redonne la clé
+  */
+            function rangerParDate(unCommit){
+              console.log(unCommit);
+              const myDate = unCommit.commit.author.date
+              // const myDateFormat = myDate.slice(0, 10) // la première version pour afficher la date court format
+              const myDateFormat = moment(myDateFormat).format('D MMM YYYY') // la deuxième version de la date court format
+              return myDateFormat;
+            }
+
+            const commitRanger = _.groupBy(commits, rangerParDate)
+            console.log("_groupBy: ", commitRanger)
+
+
+            function premiereLettre(prenom){
+              return prenom.charAt(0)
+              // return prenom[0] la deuxièm option pour grouper les prénoms par la première lettre
+            }
+
+            let names = _.groupBy(['Adele', 'Agnes', 'Sandy', 'Olga', 'Anne', 'Katherine', 'Saphir', 'Soulaihna'], premiereLettre);
+            console.log("Voici les prénoms rengés par la première lettre ", names);
+            // le premier arg est un tableau à parcourir; le deuxièm est la fonction qu'on appelle pour le parcourir
+
+            /* fin de la version _groupBy */
+
+
+
+  /* Test FOR LOOP (présenté par Adèle) */
+/*
+créer un objet maxiObjet dont les clés (key) sont les dates et les valeurs sont les commits -
+un tableau avec tous les commits effectués à cette date (this.key)
+
+*/
+            const maxiObjet = {}
+
+            for(let commit of commits){
+              const dateDuCommit = commit.commit.author.date
+              const dateFormat = dateDuCommit.slice(0, 10); //formater les dates pour enlever l'heure
+              console.log("les dates de commits: ", dateFormat)
+              if(!Array.isArray(maxiObjet[dateFormat])){ //si cette valeur n'est pas un tableau je lui assigne un tableau
+                maxiObjet[dateFormat] = [] // tu me crée un tableau
+              }
+                maxiObjet[dateFormat].push(commit) // cet Objet est un tableau dans tout les cas
+            }
+            console.log(maxiObjet, " est un maxiObjet")
+/* Fin test FOR LOOP */
+
+  /*
+  TEST OLGA
+*/
+            const groups = commits.reduce((groups, commit) => { // .reduce est appellé pour un objet vide {} ligne 159
+              console.group();
+              console.log(groups, "1. - group IS objet final clés = dates; valeurs = commits");
+              const ourDate = commit.commit.author.date; //valeur furnie par github
+              const date = ourDate.slice(0, 10);
+              console.log(date, "2. la date");
+              console.log(groups[date], "3. tableau pour la date du commit ");
+                if (!groups[date]) {
+                  groups[date] = [];
+                }
+                groups[date].push(commit);
+                console.groupEnd(); //pour grouper les consoles
+                return groups;
+
+              },  {}); // Un objet futur, un objet vide pour l'instant qui va grossir au fur et à mésure
+            // }
+            const groupArrays = Object.keys(groups).map((date) => {
+              console.log(groupArrays);
+              return {
+                date,
+                games: groups[date]
+              };
+            });
+
+            console.log(groups);
+// decouper la list en sous-list par date
+
+/*
+  fin TEST OLGA
+*/
 
             /*
                 const array2 = array1.map(fois2);
@@ -150,8 +236,8 @@
 
             function CommitLi(commit){
                 return (<li>
-                    <Commit patate={commit}/>
-                </li>)
+                    <Commit patate={commit}/> //le Composant CommitList dit au Composant Commit de récupérer chaque objet de notre data
+                </li>) // le but c'est de l'AFFICHER en list
             }
 
             // array1 (le tableau de base), c'est le tableau des commits
@@ -159,6 +245,8 @@
             // array2 (le tableau résultat), c'est un tableau de <li>s
             const commitLis = commits.map(CommitLi)
 
+
+// Maintenant il faut changer le structure avec les elements section par date, par exemple
             return (<ul className="commits">
                 {commitLis}
             </ul>)
