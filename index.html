@@ -137,8 +137,43 @@
         */
         function CommitList(props){
             const commits = props.commits;
-            console.log('commits', commits)
+            console.log('commits !!!!!', commits)
 
+
+  /*
+  TEST OLGA
+*/
+
+            const groups = commits.reduce((groups, commit) => { // .reduce est appellé pour un objet vide {} ligne 159
+              console.group();
+              console.log(groups, "1. - group IS objet final clés = dates; valeurs = commits");
+              const ourDate = commit.commit.author.date; //valeur furnie par github
+              const date = ourDate.slice(0, 10);
+              console.log(date, "2. la date");
+              console.log(groups[date], "3. tableau pour la date du commit ");
+                if (!groups[date]) {
+                  groups[date] = [];
+                }
+                groups[date].push(commit);
+                console.groupEnd(); //pour grouper les consoles
+                return groups;
+
+              },  {}); // Un objet futur, un objet vide pour l'instant qui va grossir au fur et à mésure
+            // }
+            const groupArrays = Object.keys(groups).map((date) => {
+              console.log(groupArrays);
+              return {
+                date,
+                games: groups[date]
+              };
+            });
+
+            console.log(groups);
+// decouper la list en sous-list par date
+
+/*
+  fin TEST OLGA
+*/
             /*
                 const array2 = array1.map(fois2);
                 [1, 4, 9, 16] => [fois2(1), fois2(4), fois2(9), fois2(16)]
