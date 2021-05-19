@@ -139,6 +139,25 @@
             const commits = props.commits;
             console.log('commits !!!!!', commits)
 
+  /* Test FOR LOOP (présenté par Adèle) */
+/*
+créer un objet maxiObjet dont les clés (key) sont les dates et les valeurs sont les commits -
+un tableau avec tous les commits effectués à cette date (this.key)
+
+*/
+            const maxiObjet = {}
+
+            for(let commit of commits){
+              const dateDuCommit = commit.commit.author.date
+              const dateFormat = dateDuCommit.slice(0, 10); //formater les dates pour enlever l'heure
+              console.log("les dates de commits: ", dateFormat)
+              if(!Array.isArray(maxiObjet[dateFormat])){ //si cette valeur n'est pas un tableau je lui assigne un tableau
+                maxiObjet[dateFormat] = [] // tu me crée un tableau
+              }
+                maxiObjet[dateFormat].push(commit) // cet Objet est un tableau dans tout les cas
+            }
+            console.log(maxiObjet, " est un maxiObjet")
+/* Fin test FOR LOOP */
 
   /*
   TEST OLGA
