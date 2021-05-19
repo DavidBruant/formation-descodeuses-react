@@ -14,7 +14,8 @@
     <script src="https://d3js.org/d3-fetch.v2.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
-
+    <!-- script librairy LODASH -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
     <style>
         .commit{
             border: 1px solid grey;
@@ -139,6 +140,37 @@
             const commits = props.commits;
             console.log('commits !!!!!', commits)
 
+  /*
+  La version _groupBy (présenté par Louiza)
+
+  LODASH est un bibliothèque. _groupBy(arg1, arg2) a deux argument: arg1 - le tableau et arg2 - une fonction qui prend ton element du
+  tableau et redonne la clé
+  */
+            function rangerParDate(unCommit){
+              console.log(unCommit);
+              const myDate = unCommit.commit.author.date
+              // const myDateFormat = myDate.slice(0, 10) // la première version pour afficher la date court format
+              const myDateFormat = moment(myDateFormat).format('D MMM YYYY') // la deuxième version de la date court format
+              return myDateFormat;
+            }
+
+            const commitRanger = _.groupBy(commits, rangerParDate)
+            console.log("_groupBy: ", commitRanger)
+
+
+            function premiereLettre(prenom){
+              return prenom.charAt(0)
+              // return prenom[0] la deuxièm option pour grouper les prénoms par la première lettre
+            }
+
+            let names = _.groupBy(['Adele', 'Agnes', 'Sandy', 'Olga', 'Anne', 'Katherine', 'Saphir', 'Soulaihna'], premiereLettre);
+            console.log("Voici les prénoms rengés par la première lettre ", names);
+            // le premier arg est un tableau à parcourir; le deuxièm est la fonction qu'on appelle pour le parcourir
+
+            /* fin de la version _groupBy */
+
+
+
   /* Test FOR LOOP (présenté par Adèle) */
 /*
 créer un objet maxiObjet dont les clés (key) sont les dates et les valeurs sont les commits -
@@ -162,7 +194,6 @@ un tableau avec tous les commits effectués à cette date (this.key)
   /*
   TEST OLGA
 */
-
             const groups = commits.reduce((groups, commit) => { // .reduce est appellé pour un objet vide {} ligne 159
               console.group();
               console.log(groups, "1. - group IS objet final clés = dates; valeurs = commits");
@@ -193,6 +224,7 @@ un tableau avec tous les commits effectués à cette date (this.key)
 /*
   fin TEST OLGA
 */
+
             /*
                 const array2 = array1.map(fois2);
                 [1, 4, 9, 16] => [fois2(1), fois2(4), fois2(9), fois2(16)]
@@ -202,7 +234,6 @@ un tableau avec tous les commits effectués à cette date (this.key)
                 }
             */
 
-//
             function CommitLi(commit){
                 return (<li>
                     <Commit patate={commit}/> //le Composant CommitList dit au Composant Commit de récupérer chaque objet de notre data
@@ -214,6 +245,8 @@ un tableau avec tous les commits effectués à cette date (this.key)
             // array2 (le tableau résultat), c'est un tableau de <li>s
             const commitLis = commits.map(CommitLi)
 
+
+// Maintenant il faut changer le structure avec les elements section par date, par exemple
             return (<ul className="commits">
                 {commitLis}
             </ul>)
