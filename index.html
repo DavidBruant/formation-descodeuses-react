@@ -46,10 +46,10 @@
             Titre est une fonction JavaScript,
             utilisée comme un composant React
             "props", c'est un objet contenant des données utilisées par le composant
-            Ici, "props" n'a qu'une seule propriété : 
+            Ici, "props" n'a qu'une seule propriété :
             - "qui" (à qui on dit bonjour)
 
-            Exemple usage : 
+            Exemple usage :
             - React.createElement( Titre, {qui: 'David'} )
             - <Titre qui="David"/>
         */
@@ -64,8 +64,8 @@
             Commit est une fonction JavaScript,
             utilisée comme un composant React
             "props", c'est un objet contenant des données utilisées par le composant
-            Ici, "props" n'a qu'une seule propriété : 
-            - "patate" (qui contient, on l'espère, un objet qui représente 
+            Ici, "props" n'a qu'une seule propriété :
+            - "patate" (qui contient, on l'espère, un objet qui représente
             un commit github (récupéré de l'API))
 
             props, c'est un objet qui a cette forme :  {
@@ -84,7 +84,7 @@
         */
         function Commit(props){
             //console.log('props', props)
-            
+
             const patate = props.patate;
             const message = patate.commit.message
             const author = patate.commit.author.name
@@ -101,7 +101,7 @@
 
 
             return (<div className="commit">
-                <strong className="message">{message}</strong> commité 
+                <strong className="message">{message}</strong> commité
                 par <em className="author">{author}</em> le
                 <span className="date">{date}</span>
             </div>)
@@ -109,8 +109,8 @@
 
         /*
             CommitList est une fonction JavaScript, utilisée comme un composant React
-            "props" n'a qu'une seule propriété : 
-            - "commits" (qui contient, on l'espère, un tableau d'objets qui représentent 
+            "props" n'a qu'une seule propriété :
+            - "commits" (qui contient, on l'espère, un tableau d'objets qui représentent
             chacun un commit github (récupéré de l'API))
 
             props, c'est un objet qui a cette forme :  {
@@ -142,10 +142,11 @@
             // const array2 = array1.map(fois2);
             // [1, 4, 9, 16] => [fois2(1), fois2(4), fois2(9), fois2(16)]
 
+//
             function CommitLi(commit){
                 return (<li>
-                    <Commit patate={commit}/>
-                </li>)
+                    <Commit patate={commit}/> //le Composant CommitList dit au Composant Commit de récupérer chaque objet de notre data
+                </li>) // le but c'est de l'AFFICHER en list
             }
 
             // array1 (le tableau de base), c'est le tableau des commits
