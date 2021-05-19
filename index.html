@@ -18,15 +18,23 @@
     <div id="root"></div>
     <script type="text/babel">
 
+        // React.createElement( Composant, props, enfants );
+
         /*
             Titre est une fonction JavaScript,
             utilisée comme un composant React
             "props", c'est un objet contenant des données utilisées par le composant
             Ici, "props" n'a qu'une seule propriété : 
             - "qui" (à qui on dit bonjour)
+
+            Exemple usage : 
+            - React.createElement( Titre, {qui: 'David'} )
+            - <Titre qui="David"/>
         */
         function Titre(props){
+            console.log('Titre props', props)
             const qui = props.qui;
+            console.log('qui', qui)
             return <h1>HELLO, {qui}!</h1>
         }
 
@@ -51,7 +59,7 @@
         }
 
         // appel à l'API github pour récupérer les commits
-        d3.json("https://api.github.com/repos/oisiflorus/danslajungle-site/commits?per_page=6")
+        /*d3.json("https://api.github.com/repos/oisiflorus/danslajungle-site/commits?per_page=6")
             // quand les données, reviennent de l'API, appeler cette fonction
             .then(function (data) {
                 console.log('les commits !', data);
@@ -71,11 +79,12 @@
                     document.getElementById('root')
                 );
 
-            });
+            });*/
 
         // rendu initial
         ReactDOM.render(
-            <Titre qui="David"/>,
+            React.createElement( Titre, {qui: 'David'} ),
+            //<Titre qui="David"/>,
             document.getElementById('root')
         );
 
