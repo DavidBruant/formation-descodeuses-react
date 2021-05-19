@@ -12,6 +12,22 @@
 
     <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
     <script src="https://d3js.org/d3-fetch.v2.min.js"></script>
+
+    <style>
+        .commit{
+            border: 1px solid grey;
+            padding: 0.5rem;
+        }
+
+        .commit:hover{
+            background-color: #EEE;
+        }
+
+        .author{
+            color: darkolivegreen;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -67,8 +83,8 @@
             const message = patate.commit.message
             const author = patate.commit.author.name
 
-            return (<div>
-                <strong>{message}</strong> commité par <em>{author}</em>
+            return (<div className="commit">
+                <strong className="message">{message}</strong> commité par <em className="author">{author}</em>
             </div>)
         }
 
