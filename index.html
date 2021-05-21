@@ -145,23 +145,16 @@
         }
 
 
-
-
         function CommitDateGroup (props){
             const commits = props.commits
             const date = props.date
             console.log("occurrences", commits);
-            // const occurrences =
-
-
 /*
-chercher un autre méthode comme {comitsDateGroupData.map(function(data){
-const date = data.date
-const commits = data.commits
-return <CommitDateGroup date={date} commits={commits}>
-      </CommitDateGroup>
-})}
-pour afficher the array of commits semblable à .toString()}
+on pouvait définir ici un const occurrences = qu'on pouvait appeller au sein du return
+ou utiliser la méthode .map(function) au sein du return <section>
+il était nécessaire de rappeller le constant "patate" du composant "Commit"
+dans la fonction à l'intérieur du return
+attention : il n'est peut-être pas possible de commenter à l'intérieur du JSX !
 */
               return <section>
                       <h2>{date}</h2>
